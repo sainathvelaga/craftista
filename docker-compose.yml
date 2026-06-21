@@ -1,7 +1,7 @@
 services:
 
   catalogue:
-    image: sainathvelaga/craftista:catalogue-1.0.0
+    image: sainathvelaga/craftista:catalogue-latest
     ports:
       - "5000:5000"
   voting:
