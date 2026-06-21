@@ -1,9 +1,11 @@
 # Build stage: use an image with Maven to compile the project
 FROM maven:3.9.4-eclipse-temurin-17 AS build
 WORKDIR /app
-COPY pom.xml .
-RUN mvn clean install
-COPY src ./src
+COPY pom.xml mvnw ./
+COPY .mvn .mvn
+RUN mvn -B -ntp dependency:go-offline
+COPY . .
+RUN mvn -B clean package -DskipTests
 
 # Runtime stage: use a lightweight JDK image to run the built jar
 FROM eclipse-temurin:17-jdk
