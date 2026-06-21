@@ -1,6 +1,13 @@
+# Build stage: use an image with Maven to compile the project
+FROM maven:3.9.4-eclipse-temurin-17 AS build
+WORKDIR /app
+COPY pom.xml .
+RUN mvn clean install
+COPY src ./src
+
+# Runtime stage: use a lightweight JDK image to run the built jar
 FROM eclipse-temurin:17-jdk
 WORKDIR /app
-COPY . .
-RUN mvn clean install
+COPY --from=build /app/target/voting-0.0.1-SNAPSHOT.jar /app/voting.jar
 EXPOSE 8080
-CMD ["java", "-jar", "target/voting-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "/app/voting.jar"]
