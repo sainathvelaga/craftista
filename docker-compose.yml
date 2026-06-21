@@ -1,21 +1,15 @@
 services:
 
   catalogue:
-    build:
-      context: ./catalogue
     image: sainathvelaga/craftista:catalogue-1.0.0
     ports:
       - "5000:5000"
   voting:
-    build:
-      context: ./voting
     image: sainathvelaga/craftista:voting-1.0.0
     ports:
       - "8080:8080"
 
   recommendation:
-    build:
-      context: ./recommendation
     image: sainathvelaga/craftista:recommendation-1.0.0
     ports:
       - "8081:8080"
@@ -23,8 +17,6 @@ services:
 
 
   frontend:
-    build:
-      context: ./frontend
     image: sainathvelaga/craftista:frontend-1.0.0
     ports:
       - "80:3000"
